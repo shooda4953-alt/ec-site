@@ -5,7 +5,7 @@ interface FooterTemplateProps {
   companyName: string;
 }
 
-const FooterTemplate: React.FC<FooterTemplateProps> = ({ companyName }) => {
+const Footer: React.FC<FooterTemplateProps> = ({ companyName }) => {
   return (
     <AppBar position="fixed" style={{ top: "auto", bottom: 0, width: "100%" }}>
       <Toolbar>
@@ -49,4 +49,4 @@ const FooterTemplate: React.FC<FooterTemplateProps> = ({ companyName }) => {
   );
 };
 
-export default FooterTemplate;
+export default Footer;
