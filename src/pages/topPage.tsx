@@ -25,40 +25,22 @@ function App() {
       title: "Card 3",
     },
     {
-      id: "1",
+      id: "4",
       imageSrc: "https://via.placeholder.com/150",
       imageAlt: "Image 1",
       title: "Card 1",
     },
     {
-      id: "2",
+      id: "5",
       imageSrc: "https://via.placeholder.com/150",
       imageAlt: "Image 2",
       title: "Card 2",
     },
     {
-      id: "3",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 3",
-      title: "Card 3",
-    },
-    {
-      id: "1",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 1",
-      title: "Card 1",
-    },
-    {
-      id: "2",
+      id: "6",
       imageSrc: "https://via.placeholder.com/150",
       imageAlt: "Image 2",
       title: "Card 2",
-    },
-    {
-      id: "3",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 3",
-      title: "Card 3",
     },
   ];
   return (

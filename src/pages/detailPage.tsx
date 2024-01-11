@@ -3,7 +3,7 @@ import Header from "../components/templates/header";
 import Footer from "../components/templates/footer";
 import { Grid } from "@mui/material";
 
-function detailPage() {
+function DetailPage() {
   return (
     <>
       <Box>
@@ -14,7 +14,7 @@ function detailPage() {
             width: "90%",
             height: "80px",
             justifyContent: "center",
-            marginTop: "80px",
+            marginTop: "100px",
             marginLeft: "5%",
           }}
         >
@@ -31,4 +31,4 @@ function detailPage() {
   );
 }
 
-export default detailPage;
+export default DetailPage;

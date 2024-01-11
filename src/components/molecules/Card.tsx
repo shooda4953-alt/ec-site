@@ -13,6 +13,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ imageSrc, imageAlt, title, onClick }) => {
   const [isHovered, setIsHovered] = React.useState(false);
+
   return (
     <div
       onClick={onClick}
