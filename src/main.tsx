@@ -9,6 +9,8 @@ import CartPage from "./pages/cartPage.tsx";
 import DetailPage from "./pages/detailPage.tsx";
 import MyPage from "./pages/myPage.tsx";
 import Login from "./pages/loginPage.tsx";
+import AdminTop from "./admin/pages/adminTopPage.tsx";
+import AdminLoginPage from "./admin/pages/adminLoginPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -19,6 +21,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/detail" element={<DetailPage />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin" element={<AdminTop />} />
+        <Route path="/admin/login" element={<AdminLoginPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

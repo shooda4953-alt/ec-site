@@ -20,7 +20,13 @@ const LoginForm: React.FC = () => {
     // ログインの処理を実装
     console.log("Email:", email);
     console.log("Password:", password);
-    navigate("/");
+    // パスが "/admin/login" の場合は "/admin" に遷移
+    const currentPath = window.location.pathname;
+    if (currentPath === "/admin/login") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
