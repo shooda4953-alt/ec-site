@@ -16,8 +16,16 @@ function AdminTop() {
             throw new Error("Function not implemented.");
           }}
         />
-        <Box>
-          <Grid container>
+        <Box
+          sx={{
+            width: "90%",
+            height: "120px",
+            marginTop: "50px",
+            marginLeft: "5%",
+            paddingTop: "60px",
+          }}
+        >
+          <Grid container justifyContent="end">
             <Grid item>
               <AdminRegistration />
             </Grid>

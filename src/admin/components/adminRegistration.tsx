@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/atoms/Button";
 import { useNavigate } from "react-router-dom";
+import AdminRegistrationModal from "./adminRegistrationModal";
 
 const AdminRegistration: React.FC = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleButtonClick = () => {
+    setModalOpen(true);
+  };
+
   const adminRegistrationClick = () => {
-    // ボタンがクリックされた時の処理
-    navigate("/admin/registration");
+    const currentPath = window.location.pathname;
+    if (currentPath === "/admin/registration") {
+      handleButtonClick();
+    } else {
+      navigate("/admin/registration");
+    }
   };
 
   return (
@@ -18,6 +29,7 @@ const AdminRegistration: React.FC = () => {
       >
         商品新規登録
       </Button>
+      <AdminRegistrationModal isOpen={isModalOpen} />
     </div>
   );
 };
