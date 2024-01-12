@@ -1,18 +1,44 @@
 // Header.tsx
 
-import React from "react";
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+  AppBar,
+  IconButton,
+  Toolbar,
+  Typography,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useNavigate } from "react-router-dom"; // 追加
+import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
-  const navigate = useNavigate(); // 追加
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleShoppingCartClick = () => {
-    // ショッピングカートアイコンがクリックされたときの処理
-    // 例えば、詳細ページに遷移するなど
-    navigate("/cart"); // パスは適切なものに変更
+    navigate("/cart");
+  };
+
+  const handleMyPageClick = () => {
+    navigate("/mypage");
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
+  };
+
+  const handleLogoutClick = () => {
+    navigate("/login");
+  };
+
+  const handleUserIconClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -29,9 +55,19 @@ const Header: React.FC = () => {
           <ShoppingCartIcon />
         </IconButton>
         <div style={{ marginRight: 20 }}></div>
-        <IconButton edge="end" color="inherit">
+        <IconButton edge="end" color="inherit" onClick={handleUserIconClick}>
           <AccountCircleIcon />
         </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleMenuClose}
+          style={{ fontSize: "small" }}
+        >
+          <MenuItem onClick={handleMyPageClick}>マイページ</MenuItem>
+          <MenuItem onClick={handleLoginClick}>ログイン</MenuItem>
+          <MenuItem onClick={handleLogoutClick}>ログアウト</MenuItem>
+        </Menu>
       </Toolbar>
     </AppBar>
   );

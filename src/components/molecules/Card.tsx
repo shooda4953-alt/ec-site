@@ -3,20 +3,24 @@
 import React from "react";
 import CardImage from "../atoms/CardImage";
 import CardTitle from "../atoms/CardTitle";
+import { useNavigate } from "react-router-dom";
 
 interface CardProps {
   imageSrc: string;
   imageAlt: string;
   title: string;
-  onClick?: () => void;
 }
 
-const Card: React.FC<CardProps> = ({ imageSrc, imageAlt, title, onClick }) => {
+const Card: React.FC<CardProps> = ({ imageSrc, imageAlt, title }) => {
   const [isHovered, setIsHovered] = React.useState(false);
+  const navigate = useNavigate();
 
+  const handleCardClick = () => {
+    navigate("/detail");
+  };
   return (
     <div
-      onClick={onClick}
+      onClick={handleCardClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
