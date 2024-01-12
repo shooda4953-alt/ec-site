@@ -1,5 +1,3 @@
-// main.tsx
-
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom"; // 追加
@@ -11,6 +9,7 @@ import MyPage from "./pages/myPage.tsx";
 import Login from "./pages/loginPage.tsx";
 import AdminTop from "./admin/pages/adminTopPage.tsx";
 import AdminLoginPage from "./admin/pages/adminLoginPage.tsx";
+import AdminRegistrationPage from "./admin/pages/adminRegistrationPage.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -23,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<AdminTop />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin/registration" element={<AdminRegistrationPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

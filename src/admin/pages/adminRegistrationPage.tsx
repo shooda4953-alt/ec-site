@@ -1,9 +1,8 @@
 import Box from "@mui/material/Box";
 import AdminHeader from "../components/adminHeader";
 import { Grid } from "@mui/material";
-import AdminRegistration from "../components/adminRegistration";
 
-function AdminTop() {
+function AdminRegistrationPage() {
   const username = "AdminUser"; // ダミーのユーザー名
   const isLoggedIn = true; // ログイン状態を示すフラグ
   return (
@@ -18,9 +17,7 @@ function AdminTop() {
         />
         <Box>
           <Grid container>
-            <Grid item>
-              <AdminRegistration />
-            </Grid>
+            <Grid item></Grid>
           </Grid>
         </Box>
       </Box>
@@ -28,4 +25,4 @@ function AdminTop() {
   );
 }
 
-export default AdminTop;
+export default AdminRegistrationPage;
