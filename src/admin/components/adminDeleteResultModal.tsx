@@ -3,15 +3,16 @@ import Modal from "@mui/material/Modal";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-interface AdminRegistrationModalProps {
+interface AdminRegistrationResultModalProps {
   isOpen: boolean;
+  result: string;
+  onClose: () => void;
 }
 
-const AdminRegistrationModal: React.FC<AdminRegistrationModalProps> = ({
-  isOpen,
-}) => {
+const AdminRegistrationResultModal: React.FC<
+  AdminRegistrationResultModalProps
+> = ({ isOpen, result, onClose }) => {
   const navigate = useNavigate();
-
   const handleButtonClick = () => {
     navigate("/admin");
 
@@ -23,7 +24,7 @@ const AdminRegistrationModal: React.FC<AdminRegistrationModalProps> = ({
   };
 
   return (
-    <Modal open={isOpen}>
+    <Modal open={isOpen} onClose={onClose}>
       <Box
         sx={{
           position: "absolute",
@@ -38,10 +39,17 @@ const AdminRegistrationModal: React.FC<AdminRegistrationModalProps> = ({
         }}
       >
         <Typography variant="h6" component="div">
-          商品新規登録
+          結果
         </Typography>
-
-        <Button variant="contained" color="primary" onClick={handleButtonClick}>
+        <Typography variant="body1" component="div" sx={{ marginTop: 2 }}>
+          {result}
+        </Typography>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleButtonClick}
+          sx={{ marginTop: 2 }}
+        >
           閉じる
         </Button>
       </Box>
@@ -49,4 +57,4 @@ const AdminRegistrationModal: React.FC<AdminRegistrationModalProps> = ({
   );
 };
 
-export default AdminRegistrationModal;
+export default AdminRegistrationResultModal;

@@ -1,9 +1,8 @@
-// DeleteConfirmationModal.tsx
-
-import React from "react";
+import React, { useState } from "react";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import AdminButton from "./adminButton";
+import AdminRegistrationResultModal from "./adminDeleteResultModal";
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -14,8 +13,13 @@ interface DeleteConfirmationModalProps {
 const AdminDeleteModal: React.FC<DeleteConfirmationModalProps> = ({
   isOpen,
   onClose,
-  onConfirm,
 }) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const onConfirm = () => {
+    setModalOpen(true);
+  };
+
   return (
     <Modal open={isOpen} onClose={onClose}>
       <Box
@@ -33,6 +37,11 @@ const AdminDeleteModal: React.FC<DeleteConfirmationModalProps> = ({
       >
         <p>本当に削除しますか？</p>
         <AdminButton onClick={onConfirm} label="削除する" color="secondary" />
+        <AdminRegistrationResultModal
+          isOpen={isModalOpen}
+          result={""}
+          onClose={onClose}
+        />
         <AdminButton onClick={onClose} label="キャンセル" />
       </Box>
     </Modal>

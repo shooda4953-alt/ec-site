@@ -3,13 +3,13 @@ import Button from "../../components/atoms/Button";
 
 interface CloseButtonProps {
   onClick: () => void;
-  label?: string; // ボタンのラベルを指定するためのプロパティ
-  color?: "default" | "inherit" | "primary" | "secondary"; // ボタンの色を指定するためのプロパティ
+  label?: string;
+  color?: "default" | "inherit" | "primary" | "secondary";
 }
 
 const AdminButton: React.FC<CloseButtonProps> = ({
   onClick,
-  label = "閉じる", // デフォルトのラベルは"閉じる"
+  label = "閉じる",
 }) => {
   const handleButtonClick = () => {
     onClick();
