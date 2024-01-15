@@ -25,7 +25,7 @@ const Card: React.FC<CardProps> = ({ imageSrc, imageAlt, title }) => {
       onMouseLeave={() => setIsHovered(false)}
       style={{
         cursor: "pointer",
-        width: "430px",
+        width: "30%",
         border: "1px solid #ccc",
         marginBottom: "50px",
         padding: "16px",

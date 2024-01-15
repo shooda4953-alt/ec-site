@@ -57,7 +57,12 @@ function App() {
             marginLeft: "5%",
           }}
         >
-          <Grid container alignItems="center" justifyContent="center">
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+            display="flex"
+          >
             <Grid item>
               <p>Welcome to EC-SITE</p>
             </Grid>
