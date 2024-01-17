@@ -1,5 +1,3 @@
-// Header.tsx
-
 import React, { useState } from "react";
 import {
   AppBar,
@@ -12,10 +10,14 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // 追加
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  // ログイン状態を示すフラグ (仮のもので、実際のログイン状態に応じて設定してください)
+  const isLoggedIn = true;
 
   const handleShoppingCartClick = () => {
     navigate("/cart");
@@ -29,8 +31,20 @@ const Header: React.FC = () => {
     navigate("/login");
   };
 
-  const handleLogoutClick = () => {
-    navigate("/login");
+  const handleLogoutClick = async () => {
+    try {
+      // ログアウトリクエストの送信
+      await axios.post(
+        "http://127.0.0.1:3658/m1/440876-0-default/auth/signout"
+      ); // サーバーサイドのログアウトエンドポイントに合わせて変更
+
+      console.log("Logout successful");
+
+      // ログアウト後の遷移先を指定
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   const handleUserIconClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -65,8 +79,11 @@ const Header: React.FC = () => {
           style={{ fontSize: "small" }}
         >
           <MenuItem onClick={handleMyPageClick}>マイページ</MenuItem>
-          <MenuItem onClick={handleLoginClick}>ログイン</MenuItem>
-          <MenuItem onClick={handleLogoutClick}>ログアウト</MenuItem>
+          {isLoggedIn ? (
+            <MenuItem onClick={handleLogoutClick}>ログアウト</MenuItem>
+          ) : (
+            <MenuItem onClick={handleLoginClick}>ログイン</MenuItem>
+          )}
         </Menu>
       </Toolbar>
     </AppBar>
