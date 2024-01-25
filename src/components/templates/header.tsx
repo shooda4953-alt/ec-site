@@ -10,7 +10,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // 追加
+import axios, { AxiosRequestConfig } from "axios"; // 追加
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -33,10 +33,13 @@ const Header: React.FC = () => {
 
   const handleLogoutClick = async () => {
     try {
-      // ログアウトリクエストの送信
-      await axios.post(
-        "http://127.0.0.1:3658/m1/440876-0-default/auth/signout"
-      ); // サーバーサイドのログアウトエンドポイントに合わせて変更
+      const config: AxiosRequestConfig = {
+        method: "post",
+        url: "http://localhost:8080/api/auth/signout",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
 
       console.log("Logout successful");
 

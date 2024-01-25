@@ -20,7 +20,7 @@ const LoginForm: React.FC = () => {
         const response = await axios.get(
           "http://localhost:5173/login/csrf/token"
         );
-        console.log(response.data);
+        // console.log(response.data);
         setCsrfToken(response.data.csrfToken);
       } catch (error) {
         console.error("Failed to fetch CSRF token:", error);
@@ -55,21 +55,22 @@ const LoginForm: React.FC = () => {
     // ログインの処理を実装
     if (email && password) {
       const data = JSON.stringify({
-        email: "user@lh.sandbox",
-        password: "pass",
+        email: email,
+        password: password,
       });
 
       try {
         const config: AxiosRequestConfig = {
           method: "post",
-          url: "http://localhost:8080/auth/signin",
+          url: "http://localhost:8080/api/auth/signin",
           headers: {
-            // "User-Agent": "Apidog/1.0.0 (https://apidog.com)",
-            // "Content-Type": "application/json",
+            "Content-Type": "application/json",
             "X-CSRF-Token": csrfToken,
           },
           data: data,
         };
+        console.log(setCsrfToken);
+        console.log(config);
 
         const response = await axios(config);
 

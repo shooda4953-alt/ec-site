@@ -3,46 +3,30 @@ import Header from "../components/templates/header";
 import Footer from "../components/templates/footer";
 import { Grid } from "@mui/material";
 import CardList from "../components/organisms/CardList";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function App() {
-  const sampleCards = [
-    {
-      id: "1",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 1",
-      title: "Card 1",
-    },
-    {
-      id: "2",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 2",
-      title: "Card 2",
-    },
-    {
-      id: "3",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 3",
-      title: "Card 3",
-    },
-    {
-      id: "4",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 1",
-      title: "Card 1",
-    },
-    {
-      id: "5",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 2",
-      title: "Card 2",
-    },
-    {
-      id: "6",
-      imageSrc: "https://via.placeholder.com/150",
-      imageAlt: "Image 2",
-      title: "Card 2",
-    },
-  ];
+  const [productList, setProductList] = useState<[]>([]);
+
+  useEffect(() => {
+    // バックエンドから商品一覧を取得するAPIエンドポイント
+    const apiUrl = "http://localhost:8080/api/items";
+
+    // APIリクエストを行う関数
+    const fetchProductList = async () => {
+      try {
+        const response = await axios.get(apiUrl);
+        console.log(response.data.data);
+        setProductList(response.data.data); // 取得した商品一覧をstateにセット
+      } catch (error) {
+        console.error("Error fetching product list:", error);
+      }
+    };
+
+    // ページがロードされたときに商品一覧を取得
+    fetchProductList();
+  }, []);
   return (
     <>
       <Box>
@@ -78,7 +62,7 @@ function App() {
             marginLeft: "5%",
           }}
         >
-          <CardList cards={sampleCards} />
+          <CardList cards={productList} />
         </Box>
         <Footer companyName={"EC-SITE"} />
       </Box>
