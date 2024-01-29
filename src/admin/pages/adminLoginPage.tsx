@@ -1,6 +1,6 @@
 import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
-import LoginForm from "../../components/molecules/LoginForm";
+import AdminLoginForm from "../components/adminLoginForm";
 
 function AdminLoginPage() {
   return (
@@ -38,7 +38,7 @@ function AdminLoginPage() {
               </p>
             </Grid>
             <Grid item xs={8}>
-              <LoginForm />
+              <AdminLoginForm />
             </Grid>
           </Grid>
         </Box>

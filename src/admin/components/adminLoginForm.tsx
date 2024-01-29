@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import EmailInput from "../atoms/EmailInput";
-import PasswordInput from "../atoms/PasswordInput";
+import EmailInput from "../../components/atoms/EmailInput";
+import PasswordInput from "../../components/atoms/PasswordInput";
 import axios, { AxiosRequestConfig } from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoginForm: React.FC = () => {
+const AdminLoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -18,7 +18,7 @@ const LoginForm: React.FC = () => {
     const fetchCsrfToken = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5173/login/csrf/token"
+          "http://localhost:5173/admin/login/csrf/token"
         );
         // console.log(response.data);
         setCsrfToken(response.data.csrfToken);
@@ -37,7 +37,7 @@ const LoginForm: React.FC = () => {
   ) => {
     setter(value);
     errorSetter("");
-    setLoginError(""); // 入力が変更されたらエラーメッセージをクリア
+    setLoginError("");
   };
 
   const handleLogin = async () => {
@@ -62,7 +62,7 @@ const LoginForm: React.FC = () => {
       try {
         const config: AxiosRequestConfig = {
           method: "post",
-          url: "http://localhost:8080/api/auth/signin",
+          url: "http://localhost:8080/api/auth/admin/signin",
           headers: {
             "Content-Type": "application/json",
             "X-CSRF-Token": csrfToken,
@@ -76,9 +76,7 @@ const LoginForm: React.FC = () => {
 
         console.log(JSON.stringify(response.data));
 
-        // パスが "/admin/login" の場合は "/admin" に遷移
-
-        navigate("/");
+        navigate("/admin");
       } catch (error) {
         console.error("Login error:", error);
         setLoginError("メールアドレスまたはパスワードが誤っています");
@@ -120,4 +118,4 @@ const LoginForm: React.FC = () => {
   );
 };
 
-export default LoginForm;
+export default AdminLoginForm;

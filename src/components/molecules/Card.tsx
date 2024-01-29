@@ -25,14 +25,13 @@ const Card: React.FC<CardProps> = ({ id, imageSrc, imageAlt, name, price }) => {
       // APIリクエストを行う
       const response = await axios.get(apiUrl);
 
-      // 取得した詳細情報をコンソールに表示（適切な処理に変更する必要があります）
       console.log("Product Detail:", response.data.id);
 
       // ここで商品詳細を取得した後、適切な処理を実装してください。
       // 例えば、取得した詳細情報をstateにセットし、詳細ページに遷移するなど。
       // 取得した詳細情報をstateにセット
       setProductDetail(response.data);
-      navigate("/detail");
+      navigate(`/detail/${id}`);
     } catch (error) {
       console.error("Error fetching product detail:", error);
     }

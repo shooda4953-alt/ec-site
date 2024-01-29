@@ -1,32 +1,55 @@
+// src/pages/DetailPage.tsx
+
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Header from "../components/templates/header";
 import Footer from "../components/templates/footer";
 import { Grid } from "@mui/material";
 import axios from "axios";
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import Button from "../components/atoms/Button";
+import { useCart } from "../components/templates/cartContext";
+
+interface ProductDetail {
+  id: number;
+  name: string;
+  price: number;
+  content: string;
+  // 他の商品情報も必要に応じて追加
+}
 
 function DetailPage() {
   const { id } = useParams<{ id: string }>();
-  const [productDetail, setProductDetail] = useState<any>(null); // 商品の詳細情報
+  const [productDetail, setProductDetail] =
+    React.useState<ProductDetail | null>(null);
+  const { addToCart } = useCart();
 
   useEffect(() => {
-    // 商品の詳細情報を取得するAPIエンドポイント
-    const apiUrl = `https://localhost:8080/api/items/`;
+    const apiUrl = `http://localhost:8080/api/items/${id}`;
 
-    // APIリクエストを行う関数
     const fetchProductDetail = async () => {
       try {
-        const response = await axios.get(apiUrl);
+        const response = await axios.get<ProductDetail>(apiUrl);
         setProductDetail(response.data);
       } catch (error) {
         console.error("Error fetching product detail:", error);
       }
     };
 
-    // 商品IDが変更されたときに詳細情報を再取得
     fetchProductDetail();
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (productDetail) {
+      addToCart({
+        id: productDetail.id,
+        name: productDetail.name,
+        price: productDetail.price,
+        // 他の商品情報も必要に応じて追加
+      });
+    }
+  };
+
   return (
     <>
       <Box>
@@ -34,39 +57,63 @@ function DetailPage() {
         <Box
           sx={{
             boxShadow: 2,
-            width: "90%",
-            height: "80px",
+            width: "60%",
+            height: "600px",
             justifyContent: "center",
-            marginTop: "100px",
-            marginLeft: "5%",
+            marginTop: "150px",
+            marginLeft: "20%",
+            alignItems: "center",
           }}
         >
           <Grid container alignItems="center" justifyContent="center">
             <Grid item>
-              <p>Welcome to EC-SITE</p>
+              {productDetail ? (
+                <>
+                  <Grid
+                    item
+                    xs={12}
+                    sx={{
+                      marginTop: "20px",
+                    }}
+                  >
+                    <img
+                      src="https://via.placeholder.com/350"
+                      alt={productDetail.name}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <h1>{productDetail.name}</h1>
+                    <p>金額: {productDetail.price}</p>
+                  </Grid>
+                  <Grid item>
+                    <p>{productDetail.content}</p>
+                  </Grid>
+                </>
+              ) : (
+                <p>Loading...</p>
+              )}
             </Grid>
           </Grid>
         </Box>
         <Box
           sx={{
-            justifyContent: "center",
-            textAlign: "center",
-            alignItems: "center",
-            width: "90%",
-            marginTop: "80px",
-            marginLeft: "5%",
+            width: "60%",
+            height: "100px",
+            marginTop: "20px",
+            marginLeft: "20%",
           }}
         >
-          {/* 商品の詳細情報を表示 */}
-          {productDetail && (
-            <div>
-              <p>{productDetail.id}</p>
-              <h1>{productDetail.name}</h1>
-              <p>Price: ${productDetail.price}</p>
-              {/* 他の商品詳細情報もここに表示 */}
-            </div>
-          )}
+          <Grid container justifyContent="end">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddToCart}
+            >
+              カートに追加
+            </Button>
+          </Grid>
         </Box>
+
         <Footer companyName={"EC-SITE"} />
       </Box>
     </>
