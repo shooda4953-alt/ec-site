@@ -30,6 +30,8 @@ const AdminLoginForm: React.FC = () => {
     fetchCsrfToken();
   }, []);
 
+  const [userToken, setUserToken] = useState<string | null>(null);
+
   const handleInputChange = (
     value: string,
     setter: React.Dispatch<React.SetStateAction<string>>,
@@ -69,14 +71,20 @@ const AdminLoginForm: React.FC = () => {
           },
           data: data,
         };
-        console.log(setCsrfToken);
         console.log(config);
 
         const response = await axios(config);
+        const token = response.data.token;
 
-        console.log(JSON.stringify(response.data));
+        // トークンをローカルストレージに保存
+        localStorage.setItem("adminToken", token);
 
-        navigate("/admin");
+        // ログイン成功時にトークンを取得し、stateに保存
+        setUserToken(response.data.token);
+
+        console.log(JSON.stringify(response.data.token));
+
+        navigate("/admin", { state: { token: response.data.token } });
       } catch (error) {
         console.error("Login error:", error);
         setLoginError("メールアドレスまたはパスワードが誤っています");

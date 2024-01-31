@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Button from "../../components/atoms/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import AdminRegistrationModal from "./adminRegistrationModal";
 
 const AdminRegistration: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const handleButtonClick = () => {
@@ -12,11 +13,13 @@ const AdminRegistration: React.FC = () => {
   };
 
   const adminRegistrationClick = () => {
-    const currentPath = window.location.pathname;
-    if (currentPath === "/admin/registration") {
+    const currentPath = location.pathname;
+    const registrationPath = "/admin/registration";
+
+    if (currentPath === registrationPath) {
       handleButtonClick();
     } else {
-      navigate("/admin/registration");
+      navigate(registrationPath);
     }
   };
 

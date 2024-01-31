@@ -13,22 +13,23 @@ import {
 } from "@mui/material";
 import AdminRegistration from "../components/adminRegistration";
 import axios from "axios";
+import AdminProductCreation from "../components/adminProductCreation";
 
 interface Product {
   id: number;
   name: string;
   price: number;
   content: string;
-  // 他の商品情報も必要に応じて追加
 }
 
 function AdminTop() {
   const [products, setProducts] = useState<Product[]>([]);
-  const username = "AdminUser"; // ダミーのユーザー名
-  const isLoggedIn = true; // ログイン状態を示すフラグ
+  const username = "AdminUser";
+  const isLoggedIn = true;
+
+  const token = localStorage.getItem("adminToken");
 
   useEffect(() => {
-    // 商品一覧を取得するAPIのエンドポイントに合わせてURLを変更してください
     const apiUrl = "http://localhost:8080/api/items";
 
     const fetchProducts = async () => {
@@ -42,6 +43,12 @@ function AdminTop() {
 
     fetchProducts();
   }, []);
+
+  const handleCellClick = (productId: number) => {
+    // ここにクリック時の処理を追加
+    // 例: 商品の詳細画面に遷移するなど
+    alert(`Product ID ${productId} clicked!`);
+  };
 
   return (
     <>
@@ -67,6 +74,8 @@ function AdminTop() {
             </Grid>
           </Grid>
 
+          <AdminProductCreation />
+
           <TableContainer component={Paper} sx={{ marginTop: "20px" }}>
             <Table>
               <TableHead>
@@ -74,17 +83,19 @@ function AdminTop() {
                   <TableCell>商品名</TableCell>
                   <TableCell>金額</TableCell>
                   <TableCell>商品説明</TableCell>
-                  {/* 他の商品情報も必要に応じて追加 */}
                 </TableRow>
               </TableHead>
               <TableBody>
                 {Array.isArray(products) && products.length > 0 ? (
                   products.map((product) => (
                     <TableRow key={product.id}>
-                      <TableCell>{product.name}</TableCell>
+                      <ClickableCell
+                        onClick={() => handleCellClick(product.id)}
+                      >
+                        {product.name}
+                      </ClickableCell>
                       <TableCell>{product.price}</TableCell>
                       <TableCell>{product.content}</TableCell>
-                      {/* 他の商品情報も必要に応じて追加 */}
                     </TableRow>
                   ))
                 ) : (
@@ -100,5 +111,24 @@ function AdminTop() {
     </>
   );
 }
+
+const ClickableCell: React.FC<{
+  onClick: () => void;
+  children: React.ReactNode;
+}> = ({ onClick, children }) => {
+  return (
+    <TableCell>
+      <div
+        style={{
+          cursor: "pointer",
+          color: "#1a73e8",
+        }}
+        onClick={onClick}
+      >
+        {children}
+      </div>
+    </TableCell>
+  );
+};
 
 export default AdminTop;

@@ -12,25 +12,28 @@ import AdminLoginPage from "./admin/pages/adminLoginPage.tsx";
 import AdminRegistrationPage from "./admin/pages/adminRegistrationPage.tsx";
 import AdminDetailPage from "./admin/pages/adminDetailPage.tsx";
 import { CartProvider } from "./components/templates/cartContext.tsx";
+import { TokenProvider } from "./admin/components/tokenContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <CartProvider>
-        <Routes>
-          <Route path="/" element={<App />} />
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/detail/:id" element={<DetailPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminTop />} />
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route
-            path="/admin/registration"
-            element={<AdminRegistrationPage />}
-          />
-          <Route path="/admin/detail" element={<AdminDetailPage />} />
-        </Routes>
+        <TokenProvider>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={<AdminTop />} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route
+              path="/admin/registration"
+              element={<AdminRegistrationPage />}
+            />
+            <Route path="/admin/detail" element={<AdminDetailPage />} />
+          </Routes>
+        </TokenProvider>
       </CartProvider>
     </BrowserRouter>
   </React.StrictMode>
